@@ -12,3 +12,7 @@ elem.send_keys("Claudiane.1")
 elem.send_keys(Keys.RETURN)
 elem.find_element(By.XPATH, "//*[text()='Processos Internos']")
 elem.click()
+
+element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "myDynamicElement"))
+    )
