@@ -25,6 +25,8 @@ array_nome_prod = []
 array_quant_result = []
 array_lote = []
 
+
+
 #guardar o array de codigos de produtos
 for row in range(2, 6):
     array_cod_prod.append(ws['A'+str(row)].value)
@@ -42,50 +44,105 @@ for row in range(2, 6):
     array_lote.append(ws['D'+str(row)].value)
 
 
-#clico na opcao de devolucao
-elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
-elem.click()
+tamanho_devolucao = 0
+linha = 2
 
-time.sleep(1)
+while ws['A'+str(linha)].value != None:
+    linha +=1
+    tamanho_devolucao +=1
+    print(tamanho_devolucao)
+    if ws['A'+str(linha)].value == None:
+        break
+print("O tamanho da devolucao é: ",tamanho_devolucao)
+    
+for devolucao in tamanho_devolucao:
+    var_control = True
+    
+    elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
+    elem.click()
 
-#clico no campo Produto
-prod = driver.find_element(By.ID, "Product_Name")
-prod.click()
+    time.sleep(1)
 
-#digito o codigo e aperto Enter
-prod.send_keys(array_cod_prod[0]+Keys.RETURN)
+    prod = driver.find_element(By.ID, "Product_Name")
+    prod.click()
 
-#seleciono o botao do endereço de origem
-xpath_orig = '//button[@class="pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only"]'
-WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.XPATH, xpath_orig))
-)
-orig = driver.find_elements(By.XPATH, xpath_orig)
-orig[2].click()
+    prod.send_keys(array_cod_prod[devolucao]+Keys.RETURN)
 
-#escolho dentre os elementos (divs) o produto com base no lote
-xpath_lote = "//div[@style=\"padding-left: 10px;margin-top: -10px;\" and contains(., 'Lote: ')]"
-lote = driver.find_element(By.XPATH, xpath_lote + array_lote[0])
-lote.click()
+    xpath_orig = '//button[@class="pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only"]'
+    WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, xpath_orig))
+    )
+    orig = driver.find_elements(By.XPATH, xpath_orig)
+    orig[2].click()
 
-#escrevo a quantidade certa
-id_quant = driver.find_element(By.ID, "Ammount")
-id_quant.clear()
-id_quant.send_keys(array_quant_result[0])
+    xpath_lote = "//div[@style=\"padding-left: 10px;margin-top: -10px;\" and contains(., 'Lote: ')]"
+    lote = driver.find_element(By.XPATH, xpath_lote + array_lote[devolucao])
+    lote.click()
 
-#seleciono o botao para mostrar a posicao de devolucao
-# -> no desenvolvimento do codigo, haviam dois botões 
-# (talvez devido a não renderização, olhar foto de registro name: "foto_botao_posicao.png". 
-# Deve ser devido ao estado do botão - ativo/não ativo)
+    id_quant = driver.find_element(By.ID, "Ammount")
+    id_quant.clear()
+    id_quant.send_keys(array_quant_result[devolucao])
 
-#clico na posicao da devolucao
-WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.XPATH, "elemento da posicao"))
-)
-elemento_posic = driver.find_element(By.XPATH, "elemento da posicao")
-elemento_posic.click()
+    WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, "elemento da posicao"))
+    )
+    elemento_posic = driver.find_element(By.XPATH, "elemento da posicao")
+    elemento_posic.click()
+    
+    botao_verde = driver.find_element(By.ID, "MovingProduct_Submit")
+    botao_verde.click()
+    
+    while var_control:
+        var_control = input("Digite o valor: ")
+        print(type(var_control))
+    
+    
+    
+    
+# # #clico na opcao de devolucao
+# elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
+# elem.click()
+
+# time.sleep(1)
+
+# # #clico no campo Produto
+# prod = driver.find_element(By.ID, "Product_Name")
+# prod.click()
+
+# # #digito o codigo e aperto Enter
+# prod.send_keys(array_cod_prod[0]+Keys.RETURN)
+
+# # #seleciono o botao do endereço de origem
+# xpath_orig = '//button[@class="pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only"]'
+# WebDriverWait(driver, 5).until(
+#     EC.presence_of_element_located((By.XPATH, xpath_orig))
+# )
+# orig = driver.find_elements(By.XPATH, xpath_orig)
+# orig[2].click()
+
+# # #escolho dentre os elementos (divs) o produto com base no lote
+# xpath_lote = "//div[@style=\"padding-left: 10px;margin-top: -10px;\" and contains(., 'Lote: ')]"
+# lote = driver.find_element(By.XPATH, xpath_lote + array_lote[0])
+# lote.click()
+
+# # #escrevo a quantidade certa
+# id_quant = driver.find_element(By.ID, "Ammount")
+# id_quant.clear()
+# id_quant.send_keys(array_quant_result[0])
+
+# # #seleciono o botao para mostrar a posicao de devolucao
+# # # -> no desenvolvimento do codigo, haviam dois botões 
+# # # (talvez devido a não renderização, olhar foto de registro name: "foto_botao_posicao.png". 
+# # # Deve ser devido ao estado do botão - ativo/não ativo)
+
+# # #clico na posicao da devolucao
+# WebDriverWait(driver, 5).until(
+#     EC.presence_of_element_located((By.XPATH, "elemento da posicao"))
+# )
+# elemento_posic = driver.find_element(By.XPATH, "elemento da posicao")
+# elemento_posic.click()
 
 
-#e clico no botao verde
-botao_verde = driver.find_element(By.ID, "MovingProduct_Submit")
-botao_verde.click()
+# # #e clico no botao verde
+# botao_verde = driver.find_element(By.ID, "MovingProduct_Submit")
+# botao_verde.click()
