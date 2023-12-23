@@ -55,19 +55,26 @@ while ws['A'+str(linha)].value != None:
         break
 print("O tamanho da devolucao é: ",tamanho_devolucao)
     
-for devolucao in tamanho_devolucao:
+#clico na opcao de devolucao
+WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.ID, "OriginalAddress_Devolution"))
+    )
+elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
+elem.click()
+time.sleep(0.3)    
+
+for linha in tamanho_devolucao:
     var_control = True
     
-    elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
-    elem.click()
-
-    time.sleep(1)
-
+    #clico no campo Produto
     prod = driver.find_element(By.ID, "Product_Name")
     prod.click()
+    time.sleep(0.2) 
 
-    prod.send_keys(array_cod_prod[devolucao]+Keys.RETURN)
+    #digito o codigo e aperto Enter
+    prod.send_keys(array_cod_prod[linha]+Keys.RETURN)
 
+    #seleciono o botao do endereço de origem
     xpath_orig = '//button[@class="pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only"]'
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.XPATH, xpath_orig))
@@ -75,20 +82,25 @@ for devolucao in tamanho_devolucao:
     orig = driver.find_elements(By.XPATH, xpath_orig)
     orig[2].click()
 
-    xpath_lote = "//div[@style=\"padding-left: 10px;margin-top: -10px;\" and contains(., 'Lote: ')]"
-    lote = driver.find_element(By.XPATH, xpath_lote + array_lote[devolucao])
+    #escolho dentre os elementos (divs) o produto com base no lote
+    xpath_lote = str("//div[@style=\"padding-left: 10px;margin-top: -10px;\" and contains(., 'Lote: {}')].".format(array_lote[linha]))
+    lote = driver.find_element(By.XPATH, xpath_lote)
     lote.click()
 
+    #escrevo a quantidade certa
     id_quant = driver.find_element(By.ID, "Ammount")
     id_quant.clear()
-    id_quant.send_keys(array_quant_result[devolucao])
+    id_quant.send_keys(array_quant_result[linha])
 
+    #clico na posicao da devolucao
     WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.XPATH, "elemento da posicao"))
     )
     elemento_posic = driver.find_element(By.XPATH, "elemento da posicao")
     elemento_posic.click()
-    
+
+
+    #e clico no botao verde
     botao_verde = driver.find_element(By.ID, "MovingProduct_Submit")
     botao_verde.click()
     
