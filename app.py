@@ -46,6 +46,8 @@ for row in range(2, 6):
 elem = driver.find_element(By.ID, "OriginalAddress_Devolution")
 elem.click()
 
+time.sleep(1)
+
 #clico no campo Produto
 prod = driver.find_element(By.ID, "Product_Name")
 prod.click()
@@ -55,6 +57,9 @@ prod.send_keys(array_cod_prod[0]+Keys.RETURN)
 
 #seleciono o botao do endereço de origem
 xpath_orig = '//button[@class="pui-button ui-widget ui-state-default ui-corner-right pui-button-icon-only"]'
+WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.XPATH, xpath_orig))
+)
 orig = driver.find_elements(By.XPATH, xpath_orig)
 orig[2].click()
 
@@ -68,12 +73,17 @@ id_quant = driver.find_element(By.ID, "Ammount")
 id_quant.clear()
 id_quant.send_keys(array_quant_result[0])
 
-#seleciono no botao para mostrar a posicao de devolucao
+#seleciono o botao para mostrar a posicao de devolucao
 # -> no desenvolvimento do codigo, haviam dois botões 
 # (talvez devido a não renderização, olhar foto de registro name: "foto_botao_posicao.png". 
 # Deve ser devido ao estado do botão - ativo/não ativo)
 
 #clico na posicao da devolucao
+WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.XPATH, "elemento da posicao"))
+)
+elemento_posic = driver.find_element(By.XPATH, "elemento da posicao")
+elemento_posic.click()
 
 
 #e clico no botao verde
