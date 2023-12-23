@@ -48,6 +48,10 @@ link = driver.find_element(By.LINK_TEXT, "Tech With Tim")
 link = driver.find_elements(By.LINK_TEXT, "Tech With Tim") 
 link = driver.find_elements(By.PARTIAL_LINK_TEXT, "Tech With Tim") 
 
+#Acessar o atributo text do elemento e/ou valores
+link = driver.find_element(By.LINK_TEXT, "Tech With Tim").text
+
+
 link.click() #clica no elemento
 
 
