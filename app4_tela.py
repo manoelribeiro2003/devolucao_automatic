@@ -26,6 +26,7 @@ def print_dados_planilha():
     print(nav.dados_planilha(prod))
 
 
+
 window = Tk()
 
 notebook = ttk.Notebook(window) # Um widget que gerencia uma coleção de janelas/displays
@@ -48,6 +49,4 @@ Button(tab1, text='Fazer Devolução', font=('Arial', 15), command=fazer_devoluc
 Button(tab1, text='Mostrar quantidades', font=('Arial', 15), command=mostrarQuantidades).pack(padx=8, pady=8, fill=BOTH, )
 Button(tab1, text='Mostrar dados planilha', font=('Arial', 15), command=print_dados_planilha).pack(padx=8, pady=8, fill=BOTH, )
 
-
 window.mainloop()
-
