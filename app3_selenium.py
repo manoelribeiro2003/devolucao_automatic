@@ -121,3 +121,5 @@ class Navegador():
                         else:
                             # Adiciono +1 á linha ✓
                             print("Contador: ", int(self.linha+2))
+xpath_div_endereco_op: "//li[@class='pui-autocomplete-item pui-autocomplete-list-item ui-corner-all ui-state-highlight' and  contains(text(),*) and contains(text(),'.') and contains(text(),*) and contains(text(),'.') and contains(text(),'.01.') and contains(text(),*)]"
+
