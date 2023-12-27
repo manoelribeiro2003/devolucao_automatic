@@ -3,5 +3,8 @@ contains(text(),*) and
 contains(text(),'.') and
 contains(text(),*) and
 contains(text(),'.') and
-contains(text(),'.01.') and
+contains(text(),*) and
+contains(text(),'.') and
+contains(text(),'01')
+contains(text(),'.') and
 contains(text(),*)]
