@@ -131,7 +131,7 @@ class Navegador():
                                 #Clico no terceiro botão dropdown
                                 list_bot_drop[2].click()
                                 # Xpath da DIV que contem o endereço da posicão a ser devolvida
-                                xpath_div_endereco_op = "//li[@class='pui-autocomplete-item pui-autocomplete-list-item ui-corner-all ui-state-highlight' and  contains(text(),*) and contains(text(),'.') and contains(text(),*) and contains(text(),'.') and contains(text(),'.01.') and contains(text(),*)]"
+                                xpath_div_endereco_op = "//li[@class='pui-autocomplete-item pui-autocomplete-list-item ui-corner-all ui-state-highlight' and contains(text(),*) and contains(text(),'.') and contains(text(),*) and contains(text(),'.') and contains(text(),*) and contains(text(),'.01.') and contains(text(),*)]"
                                 # WebDriver Wait para esperar aparecer a DIV da posicão a ser devolvida
                                 WebDriverWait(self.driver, 15).until(
                                     EC.presence_of_element_located((By.XPATH, xpath_div_endereco_op))
