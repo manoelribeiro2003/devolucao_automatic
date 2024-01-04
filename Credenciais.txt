@@ -8,3 +8,8 @@ contains(text(),'.') and
 contains(text(),'01')
 contains(text(),'.') and
 contains(text(),*)]
+
+Senha: dfa29mh
+Usuario: MH-NOTE
+
+Caminho: smb://mh-note/downloads/
